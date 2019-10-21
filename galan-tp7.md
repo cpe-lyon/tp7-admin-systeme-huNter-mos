@@ -428,10 +428,24 @@ adrien@server:~$ adrien@server:~$ journalctl --list-boots | tail -n 3
 **7. Faites en sortes que lors d’une connexion à la machine, les utilisateurs soient prévenus par un message**
 **à l’écran d’une maintenance le 26 mars à minuit.**
 
-
+On écrit le message que l'on souhaite afficher aux utilisateurs dans le fichier /etc/motd, que l'on crée.
 
 
 **8. Ecrivez un script bash qui permet de calculer le k-ième nombre de Fibonacci : Fk = Fk−1 + Fk−2,**
 **avec F0 = F1 = 1. Lancez le calcul de F100 puis lancez la commande tload depuis un autre terminal**
 **virtuel. Que constatez-vous ? Interrompez ensuite le calcul avec CTRL+C et observez la conséquence sur**
 **l’affichage de tload.**
+
+```
+function fib(){
+  if [ $1 -le 1 ]; then
+    echo 1
+  else
+    echo $[`fib $[$1-2]` + `fib $[$1 - 1]` ]
+  fi
+}
+fib $1
+```
+
+Ce script demande beaucoup de calculs et donc de ressources et on peut donc voir que la consommation du processus augmente énormément. 
+La charge du processeur baisse directement si on ferme le processus.
